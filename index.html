@@ -66,6 +66,57 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-指针高级运用" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/24/指针高级运用/" class="article-date">
+  <time datetime="2019-05-24T14:06:54.833Z" itemprop="datePublished">2019-05-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/24/指针高级运用/">指针的高级运用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="指针高级运用"><a href="#指针高级运用" class="headerlink" title="指针高级运用"></a>指针高级运用</h1><h2 id="指针基础"><a href="#指针基础" class="headerlink" title="指针基础"></a>指针基础</h2><p>  内存的最小单位是比特位bit.<br>  内存最小管理单位是字节Byte <strong>1B=8bit</strong>.<br>  操作系统会给内存条中的每一个字节的内存段设置一个唯一的编号。<br>  地址：代表一个字节的内存段。首地址：可以代表一段内存段。一般我们把地址和首地址的概念通用。<br>  指针：数据存在的内存段的地址。指针本身也是一个变量，且其大小为4（32位平台）或8（64位平台）<br>  定义变量：变量名<strong>绑定</strong>内存段。<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int a,b;</span><br><span class="line">a=10;</span><br><span class="line">b=20;</span><br></pre></td></tr></table></figure></p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">int *p=NULL;//绑定的是一个内存段的地址</span><br><span class="line">p=&amp;a;//p绑定的内存段中保存的是a绑定的内存的地址，简单理解为p指向a</span><br><span class="line">*p=11;//解引用，通过地址找到地址绑定的内存段</span><br><span class="line">//此时a的值就是*p的值</span><br></pre></td></tr></table></figure>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//指针变量的数学运算带类型</span><br><span class="line">p=p-3;//指针减小了三个int类型的长度。注意不要有野指针。</span><br></pre></td></tr></table></figure>
+<h2 id="指针数组和数组指针"><a href="#指针数组和数组指针" class="headerlink" title="指针数组和数组指针"></a>指针数组和数组指针</h2><p>  将相同类型的变量存储在一起。<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">int a[10];//这是一个数组，数组的元素为int类型数据</span><br><span class="line">int *b[10];//这是一个数组，数组元素为int*类型数据 这就是指针数组</span><br><span class="line">int (*pArr)[10];//这是一个数组指针，可以指向一个就有10个int数据的数组</span><br><span class="line">pArr=&amp;a;//给数组指针赋值</span><br></pre></td></tr></table></figure></p>
+<h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><p>  本质上就是一个以’\0’结尾的char类型数组。<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">char *p=&quot;hello world!&quot;;//存的是字面常量的首地址，*p=&quot;hello 世界！&quot;会出错。</span><br><span class="line">char str[20]=&quot;hello world!&quot;;//将文字常量区的内容拷贝到栈中。str=&quot;hello 世界！&quot;没有问题。</span><br></pre></td></tr></table></figure></p>
+<h2 id="指针常量和常量指针"><a href="#指针常量和常量指针" class="headerlink" title="指针常量和常量指针"></a>指针常量和常量指针</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//const 修饰变量为只读</span><br><span class="line">const int n=10;</span><br><span class="line">n=66;//编译器会报错</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//const 修饰变量为只读，可通过指针操作(会开辟一段新的内存)</span><br><span class="line">const int n=10;</span><br><span class="line">int *p=(int *)&amp;n;</span><br><span class="line">*p=666;//编译器不会报错</span><br><span class="line">printf(&quot;n:%d\n&quot;,n);//输出n:10</span><br><span class="line">printf(&quot;*p:%d&quot;,*p);//输出*p:666</span><br></pre></td></tr></table></figure>
+<p>  指针常量：顾名思义它就是一个常量，但是是指针修饰的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">int a，b；</span><br><span class="line">int * const p=&amp;a //指针常量</span><br><span class="line">//那么分为一下两种操作</span><br><span class="line">*p=9;//操作成功</span><br><span class="line">p=&amp;b;//操作错误</span><br></pre></td></tr></table></figure></p>
+<p>  常量指针：指向常量的指针。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">int a，b；</span><br><span class="line">const int *p=&amp;a //常量指针</span><br><span class="line">//那么分为一下两种操作</span><br><span class="line">*p=9;//操作错误</span><br><span class="line">p=&amp;b;//操作成功</span><br></pre></td></tr></table></figure></p>
+<p>  指向常量的指针常量：指针本身是常量，且指向的内存也为只读内存<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">int a，b；</span><br><span class="line">const int *const p=&amp;a //常量指针</span><br><span class="line">//那么分为一下两种操作</span><br><span class="line">*p=9;//操作错误</span><br><span class="line">p=&amp;b;//操作错误</span><br></pre></td></tr></table></figure></p>
+<h2 id="函数指针和回掉函数"><a href="#函数指针和回掉函数" class="headerlink" title="函数指针和回掉函数"></a>函数指针和回掉函数</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">int fun(char *); //声明一个函数，有一个char*类型的参数，返回值为int型 </span><br><span class="line">int a;  </span><br><span class="line">char str[]=&quot;abcdefghijklmn&quot;;  </span><br><span class="line">a=fun(str);//直接调用这个函数  </span><br><span class="line">/**************************************/</span><br><span class="line">这是函数得定义</span><br><span class="line">int fun(char *s)  </span><br><span class="line">&#123;  </span><br><span class="line">    int num=0;  </span><br><span class="line">    for(int i=0;;)  </span><br><span class="line">    &#123;  </span><br><span class="line">        num+=*s;s++;  </span><br><span class="line">    &#125;  </span><br><span class="line">    return num;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>  回调函数就是一个通过函数指针调用的函数。如果你把函数的指针（地址）作为参数传递给另一个函数，当这个指针被用来调用其所指向的函数时，我们就说这是回调函数。回调函数不是由该函数的实现方直接调用，而是在特定的事件或条件发生时由另外的一方调用的，用于对该事件或条件进行响应。<br>  下面是一个通过函数指针调用函数得简单例子：<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"> #include &lt;stdio.h&gt;</span><br><span class="line"> void print();</span><br><span class="line"> int main(void)</span><br><span class="line"> &#123;</span><br><span class="line">  void (*fuc)(); //定义一个函数指针</span><br><span class="line">  fuc = print ; //给指针赋值</span><br><span class="line">  fuc();//通过指针来调用函数 	</span><br><span class="line"> &#125; </span><br><span class="line"> void print()</span><br><span class="line"> &#123;</span><br><span class="line">printf(&quot;hello world!\n&quot;);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
+<p>  但是这个例子并没有将函数指针传递给一个函数去作为参数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line"> </span><br><span class="line">int add_ret() ;</span><br><span class="line"> </span><br><span class="line">int add(int a , int b , int (*add_value)(int,int))//函数指针作为参数</span><br><span class="line">&#123;</span><br><span class="line">	return (*add_value)(a,b);//通过函数指针来调用函数</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">int main(void)</span><br><span class="line">&#123;</span><br><span class="line">	int sum = add(3,4,add_ret);</span><br><span class="line">	printf(&quot;sum:%d\n&quot;,sum);</span><br><span class="line">	return 0 ;</span><br><span class="line">&#125; </span><br><span class="line"> </span><br><span class="line">int add_ret(int a , int b)</span><br><span class="line">&#123;</span><br><span class="line">	return a+b ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>  要想理解好指针，关键是要理解好四个要素：指针的类型、指针所指向的内存的类型、指针所指向内存的位置和指针本身所占的位置  </p>
+<h6 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h6><p>  大家也可以访问我的个人博客<a href="https://ljl131.github.io" target="_blank" rel="noopener">豆浆and油条er</a>、个人公众号搜索：豆浆and油条er</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/05/24/指针高级运用/" data-id="cjw25sobx0003x8jxk1fthgd0" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Linux下的文件相关操作" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/05/24/Linux下的文件相关操作/" class="article-date">
@@ -108,58 +159,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/24/Linux下的文件相关操作/" data-id="cjw25nc3c0000ufjxmqo5z0pl" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-指针高级运用" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/05/24/指针高级运用/" class="article-date">
-  <time datetime="2019-05-24T06:58:48.008Z" itemprop="datePublished">2019-05-24</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/24/指针高级运用/">指针的高级运用</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="指针高级运用"><a href="#指针高级运用" class="headerlink" title="指针高级运用"></a>指针高级运用</h1><h2 id="指针基础"><a href="#指针基础" class="headerlink" title="指针基础"></a>指针基础</h2><p>  内存的最小单位是比特位bit.<br>  内存最小管理单位是字节Byte <strong>1B=8bit</strong>.<br>  操作系统会给内存条中的每一个字节的内存段设置一个唯一的编号。<br>  地址：代表一个字节的内存段。首地址：可以代表一段内存段。一般我们把地址和首地址的概念通用。<br>  指针：数据存在的内存段的地址。指针本身也是一个变量，且其大小为4（32位平台）或8（64位平台）<br>  定义变量：变量名<strong>绑定</strong>内存段。<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int a,b;</span><br><span class="line">a=10;</span><br><span class="line">b=20;</span><br></pre></td></tr></table></figure></p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">int *p=NULL;//绑定的是一个内存段的地址</span><br><span class="line">p=&amp;a;//p绑定的内存段中保存的是a绑定的内存的地址，简单理解为p指向a</span><br><span class="line">*p=11;//解引用，通过地址找到地址绑定的内存段</span><br><span class="line">//此时a的值就是*p的值</span><br></pre></td></tr></table></figure>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//指针变量的数学运算带类型</span><br><span class="line">p=p-3;//指针减小了三个int类型的长度。注意不要有野指针。</span><br></pre></td></tr></table></figure>
-<h2 id="指针数组和数组指针"><a href="#指针数组和数组指针" class="headerlink" title="指针数组和数组指针"></a>指针数组和数组指针</h2><p>  将相同类型的变量存储在一起。<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">int a[10];//这是一个数组，数组的元素为int类型数据</span><br><span class="line">int *b[10];//这是一个数组，数组元素为int*类型数据 这就是指针数组</span><br><span class="line">int (*pArr)[10];//这是一个数组指针，可以指向一个就有10个int数据的数组</span><br><span class="line">pArr=&amp;a;//给数组指针赋值</span><br></pre></td></tr></table></figure></p>
-<h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><p>  本质上就是一个以’\0’结尾的char类型数组。<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">char *p=&quot;hello world!&quot;;//存的是字面常量的首地址，*p=&quot;hello 世界！&quot;会出错。</span><br><span class="line">char str[20]=&quot;hello world!&quot;;//将文字常量区的内容拷贝到栈中。str=&quot;hello 世界！&quot;没有问题。</span><br></pre></td></tr></table></figure></p>
-<h2 id="指针常量和常量指针"><a href="#指针常量和常量指针" class="headerlink" title="指针常量和常量指针"></a>指针常量和常量指针</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//const 修饰变量为只读</span><br><span class="line">const int n=10;</span><br><span class="line">n=66;//编译器会报错</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//const 修饰变量为只读，可通过指针操作(会开辟一段新的内存)</span><br><span class="line">const int n=10;</span><br><span class="line">int *p=(int *)&amp;n;</span><br><span class="line">*p=666;//编译器不会报错</span><br><span class="line">printf(&quot;n:%d\n&quot;,n);//输出n:10</span><br><span class="line">printf(&quot;*p:%d&quot;,*p);//输出*p:666</span><br></pre></td></tr></table></figure>
-<p>  指针常量：顾名思义它就是一个常量，但是是指针修饰的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">int a，b；</span><br><span class="line">int * const p=&amp;a //指针常量</span><br><span class="line">//那么分为一下两种操作</span><br><span class="line">*p=9;//操作成功</span><br><span class="line">p=&amp;b;//操作错误</span><br></pre></td></tr></table></figure></p>
-<p>  常量指针：指向常量的指针。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">int a，b；</span><br><span class="line">const int *p=&amp;a //常量指针</span><br><span class="line">//那么分为一下两种操作</span><br><span class="line">*p=9;//操作错误</span><br><span class="line">p=&amp;b;//操作成功</span><br></pre></td></tr></table></figure></p>
-<p>  指向常量的指针常量：指针本身是常量，且指向的内存也为只读内存<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">int a，b；</span><br><span class="line">const int *const p=&amp;a //常量指针</span><br><span class="line">//那么分为一下两种操作</span><br><span class="line">*p=9;//操作错误</span><br><span class="line">p=&amp;b;//操作错误</span><br></pre></td></tr></table></figure></p>
-<h2 id="函数指针和回掉函数"><a href="#函数指针和回掉函数" class="headerlink" title="函数指针和回掉函数"></a>函数指针和回掉函数</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">int fun(char *); //声明一个函数，有一个char*类型的参数，返回值为int型 </span><br><span class="line">int a;  </span><br><span class="line">char str[]=&quot;abcdefghijklmn&quot;;  </span><br><span class="line">a=fun(str);//直接调用这个函数  </span><br><span class="line">/**************************************/</span><br><span class="line">这是函数得定义</span><br><span class="line">int fun(char *s)  </span><br><span class="line">&#123;  </span><br><span class="line">    int num=0;  </span><br><span class="line">    for(int i=0;;)  </span><br><span class="line">    &#123;  </span><br><span class="line">        num+=*s;s++;  </span><br><span class="line">    &#125;  </span><br><span class="line">    return num;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>  回调函数就是一个通过函数指针调用的函数。如果你把函数的指针（地址）作为参数传递给另一个函数，当这个指针被用来调用其所指向的函数时，我们就说这是回调函数。回调函数不是由该函数的实现方直接调用，而是在特定的事件或条件发生时由另外的一方调用的，用于对该事件或条件进行响应。<br>  下面是一个通过函数指针调用函数得简单例子：<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"> #include &lt;stdio.h&gt;</span><br><span class="line"> void print();</span><br><span class="line"> int main(void)</span><br><span class="line"> &#123;</span><br><span class="line">  void (*fuc)(); //定义一个函数指针</span><br><span class="line">  fuc = print ; //给指针赋值</span><br><span class="line">  fuc();//通过指针来调用函数 	</span><br><span class="line"> &#125; </span><br><span class="line"> void print()</span><br><span class="line"> &#123;</span><br><span class="line">printf(&quot;hello world!\n&quot;);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
-<p>  但是这个例子并没有将函数指针传递给一个函数去作为参数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line"> </span><br><span class="line">int add_ret() ;</span><br><span class="line"> </span><br><span class="line">int add(int a , int b , int (*add_value)(int,int))//函数指针作为参数</span><br><span class="line">&#123;</span><br><span class="line">	return (*add_value)(a,b);//通过函数指针来调用函数</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">int main(void)</span><br><span class="line">&#123;</span><br><span class="line">	int sum = add(3,4,add_ret);</span><br><span class="line">	printf(&quot;sum:%d\n&quot;,sum);</span><br><span class="line">	return 0 ;</span><br><span class="line">&#125; </span><br><span class="line"> </span><br><span class="line">int add_ret(int a , int b)</span><br><span class="line">&#123;</span><br><span class="line">	return a+b ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>  要想理解好指针，关键是要理解好四个要素：指针的类型、指针所指向的内存的类型、指针所指向内存的位置和指针本身所占的位置  </p>
-<h6 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h6><p>  大家也可以访问我的个人博客<a href="https://ljl131.github.com" target="_blank" rel="noopener">豆浆and油条er</a>、个人公众号搜索：豆浆and油条er</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/24/指针高级运用/" data-id="cjw25nc580003ufjxrf12225o" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/24/Linux下的文件相关操作/" data-id="cjw25sobo0000x8jxxwc578qw" class="article-share-link">Share</a>
       
       
     </footer>
@@ -199,7 +199,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/24/gcc的编译过程/" data-id="cjw25nc4r0002ufjxnj72qsuq" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/24/gcc的编译过程/" data-id="cjw25sobu0001x8jx7m8l2oox" class="article-share-link">Share</a>
       
       
     </footer>
@@ -244,7 +244,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/24/hello-world/" data-id="cjw25nc4o0001ufjx7yliidvz" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/24/hello-world/" data-id="cjw25sobv0002x8jxsfgbjicb" class="article-share-link">Share</a>
       
       
     </footer>
@@ -285,11 +285,11 @@
       <ul>
         
           <li>
-            <a href="/2019/05/24/Linux下的文件相关操作/">Linux下的文件相关操作</a>
+            <a href="/2019/05/24/指针高级运用/">指针的高级运用</a>
           </li>
         
           <li>
-            <a href="/2019/05/24/指针高级运用/">指针的高级运用</a>
+            <a href="/2019/05/24/Linux下的文件相关操作/">Linux下的文件相关操作</a>
           </li>
         
           <li>

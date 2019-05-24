@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="豆浆and油条er">
 <meta property="og:description" content="指针高级运用指针基础  内存的最小单位是比特位bit.  内存最小管理单位是字节Byte 1B=8bit.  操作系统会给内存条中的每一个字节的内存段设置一个唯一的编号。  地址：代表一个字节的内存段。首地址：可以代表一段内存段。一般我们把地址和首地址的概念通用。  指针：数据存在的内存段的地址。指针本身也是一个变量，且其大小为4（32位平台）或8（64位平台）  定义变量：变量名绑定内存段。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-05-24T06:58:48.004Z">
+<meta property="og:updated_time" content="2019-05-24T14:06:54.821Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="指针的高级运用">
 <meta name="twitter:description" content="指针高级运用指针基础  内存的最小单位是比特位bit.  内存最小管理单位是字节Byte 1B=8bit.  操作系统会给内存条中的每一个字节的内存段设置一个唯一的编号。  地址：代表一个字节的内存段。首地址：可以代表一段内存段。一般我们把地址和首地址的概念通用。  指针：数据存在的内存段的地址。指针本身也是一个变量，且其大小为4（32位平台）或8（64位平台）  定义变量：变量名绑定内存段。">
@@ -68,7 +68,7 @@
         <section id="main"><article id="post-指针高级运用" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/05/24/指针高级运用/" class="article-date">
-  <time datetime="2019-05-24T06:58:48.008Z" itemprop="datePublished">2019-05-24</time>
+  <time datetime="2019-05-24T14:06:54.833Z" itemprop="datePublished">2019-05-24</time>
 </a>
     
   </div>
@@ -101,12 +101,12 @@
 <p>  回调函数就是一个通过函数指针调用的函数。如果你把函数的指针（地址）作为参数传递给另一个函数，当这个指针被用来调用其所指向的函数时，我们就说这是回调函数。回调函数不是由该函数的实现方直接调用，而是在特定的事件或条件发生时由另外的一方调用的，用于对该事件或条件进行响应。<br>  下面是一个通过函数指针调用函数得简单例子：<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"> #include &lt;stdio.h&gt;</span><br><span class="line"> void print();</span><br><span class="line"> int main(void)</span><br><span class="line"> &#123;</span><br><span class="line">  void (*fuc)(); //定义一个函数指针</span><br><span class="line">  fuc = print ; //给指针赋值</span><br><span class="line">  fuc();//通过指针来调用函数 	</span><br><span class="line"> &#125; </span><br><span class="line"> void print()</span><br><span class="line"> &#123;</span><br><span class="line">printf(&quot;hello world!\n&quot;);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
 <p>  但是这个例子并没有将函数指针传递给一个函数去作为参数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line"> </span><br><span class="line">int add_ret() ;</span><br><span class="line"> </span><br><span class="line">int add(int a , int b , int (*add_value)(int,int))//函数指针作为参数</span><br><span class="line">&#123;</span><br><span class="line">	return (*add_value)(a,b);//通过函数指针来调用函数</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">int main(void)</span><br><span class="line">&#123;</span><br><span class="line">	int sum = add(3,4,add_ret);</span><br><span class="line">	printf(&quot;sum:%d\n&quot;,sum);</span><br><span class="line">	return 0 ;</span><br><span class="line">&#125; </span><br><span class="line"> </span><br><span class="line">int add_ret(int a , int b)</span><br><span class="line">&#123;</span><br><span class="line">	return a+b ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>  要想理解好指针，关键是要理解好四个要素：指针的类型、指针所指向的内存的类型、指针所指向内存的位置和指针本身所占的位置  </p>
-<h6 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h6><p>  大家也可以访问我的个人博客<a href="https://ljl131.github.com" target="_blank" rel="noopener">豆浆and油条er</a>、个人公众号搜索：豆浆and油条er</p>
+<h6 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h6><p>  大家也可以访问我的个人博客<a href="https://ljl131.github.io" target="_blank" rel="noopener">豆浆and油条er</a>、个人公众号搜索：豆浆and油条er</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/24/指针高级运用/" data-id="cjw25nc580003ufjxrf12225o" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/24/指针高级运用/" data-id="cjw25sobx0003x8jxk1fthgd0" class="article-share-link">Share</a>
       
       
     </footer>
@@ -115,19 +115,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2019/05/24/Linux下的文件相关操作/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Linux下的文件相关操作
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/05/24/gcc的编译过程/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2019/05/24/Linux下的文件相关操作/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">gcc的编译过程</div>
+      <div class="article-nav-title">Linux下的文件相关操作</div>
     </a>
   
 </nav>
@@ -164,11 +155,11 @@
       <ul>
         
           <li>
-            <a href="/2019/05/24/Linux下的文件相关操作/">Linux下的文件相关操作</a>
+            <a href="/2019/05/24/指针高级运用/">指针的高级运用</a>
           </li>
         
           <li>
-            <a href="/2019/05/24/指针高级运用/">指针的高级运用</a>
+            <a href="/2019/05/24/Linux下的文件相关操作/">Linux下的文件相关操作</a>
           </li>
         
           <li>
