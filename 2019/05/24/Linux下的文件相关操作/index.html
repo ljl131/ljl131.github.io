@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Linux下的文件相关操作 | 豆浆and油条er</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Linux下的文件相关操作文件的权限与属性权限文件包含三种基本权限rwx，可用chmod来改变文件的权限 属性文件属性包括文件类型，文件的所有者可用chown修改，文件所属群组可用chgrp修改，和其他人，大小，时间，文件名等属性。 默认权限与隐藏权限文件的默认权限：umask比如输入umask1umask   输出为0002；  则对于文件其默认权限就是666-002=664，对于目录默认权限就">
+<meta name="keywords" content="C C++ 计算机技术 Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux下的文件相关操作">
+<meta property="og:url" content="http://yoursite.com/2019/05/24/Linux下的文件相关操作/index.html">
+<meta property="og:site_name" content="豆浆and油条er">
+<meta property="og:description" content="Linux下的文件相关操作文件的权限与属性权限文件包含三种基本权限rwx，可用chmod来改变文件的权限 属性文件属性包括文件类型，文件的所有者可用chown修改，文件所属群组可用chgrp修改，和其他人，大小，时间，文件名等属性。 默认权限与隐藏权限文件的默认权限：umask比如输入umask1umask   输出为0002；  则对于文件其默认权限就是666-002=664，对于目录默认权限就">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-05-24T13:51:54.721Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux下的文件相关操作">
+<meta name="twitter:description" content="Linux下的文件相关操作文件的权限与属性权限文件包含三种基本权限rwx，可用chmod来改变文件的权限 属性文件属性包括文件类型，文件的所有者可用chown修改，文件所属群组可用chgrp修改，和其他人，大小，时间，文件名等属性。 默认权限与隐藏权限文件的默认权限：umask比如输入umask1umask   输出为0002；  则对于文件其默认权限就是666-002=664，对于目录默认权限就">
+  
+    <link rel="alternate" href="/atom.xml" title="豆浆and油条er" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">豆浆and油条er</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Linux下的文件相关操作" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/24/Linux下的文件相关操作/" class="article-date">
+  <time datetime="2019-05-24T13:51:54.725Z" itemprop="datePublished">2019-05-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Linux下的文件相关操作
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Linux下的文件相关操作"><a href="#Linux下的文件相关操作" class="headerlink" title="Linux下的文件相关操作"></a>Linux下的文件相关操作</h2><h2 id="文件的权限与属性"><a href="#文件的权限与属性" class="headerlink" title="文件的权限与属性"></a>文件的权限与属性</h2><h3 id="权限"><a href="#权限" class="headerlink" title="权限"></a>权限</h3><p>文件包含三种基本权限rwx，可用chmod来改变文件的权限</p>
+<h3 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h3><p>文件属性包括文件类型，文件的所有者可用chown修改，文件所属群组可用chgrp修改，和其他人，大小，时间，文件名等属性。</p>
+<h3 id="默认权限与隐藏权限"><a href="#默认权限与隐藏权限" class="headerlink" title="默认权限与隐藏权限"></a>默认权限与隐藏权限</h3><h4 id="文件的默认权限：umask"><a href="#文件的默认权限：umask" class="headerlink" title="文件的默认权限：umask"></a>文件的默认权限：umask</h4><p>比如输入umask<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">umask</span><br></pre></td></tr></table></figure></p>
+<p>  输出为0002；<br>  则对于文件其默认权限就是666-002=664，对于目录默认权限就是777-002=775.<br>  umask也可以直接接数字，以此来改变umask的值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">umask 022</span><br><span class="line">``` </span><br><span class="line">  此时，文件的默认权限644，目录的默认权限755</span><br><span class="line">#### 文件的隐藏属性</span><br><span class="line">chatter(设置隐藏属性)</span><br></pre></td></tr></table></figure></p>
+<p>chattr [+-=] [隐藏属性] 文件或目录名称</p>
+<p>隐藏属性：<br>A:当存取文件或目录时atime不会被修改，可避免I/O较慢的机器过度的存取磁盘<br>S:同步写入磁盘<br>a:只能增加数据，不能修改和删除<br>c:自动进行压缩和解压缩<br>i:不能增删改数据。<br>最常见的就是a与i，且很多权限要root用户才能设置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#### 文件的特殊属性</span><br><span class="line">1. SUID:s出现在文件拥有者的x权限上。在程序执行时，执行者暂时获得拥有者的权限。</span><br><span class="line">2. SGID:s出现在文件群组的x权限上。在程序执行时，执行者暂时获得群组的权限。</span><br><span class="line">3. SBIT（仅对目录有效） 在此目录下建的文件只有自己和root才能删除</span><br><span class="line"> 设置方法是在普通权限前在加一个数字4为SUID,2为SGID,1为SBIT</span><br></pre></td></tr></table></figure></p>
+<p>chmod 4755 filename<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">## 文件与目录管理</span><br><span class="line">### PATH环境变量</span><br><span class="line">  系统会依照PATH的设置去每个目录下搜寻可执行程序.  </span><br><span class="line">  用下面的指令打印PATH变量的值。</span><br></pre></td></tr></table></figure></p>
+<p>echo $PATH<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">### 文件的基本操作</span><br><span class="line">- ls(查看目录下的文件) 常用参数：-a -l</span><br><span class="line">- cp (复制文件和目录)</span><br><span class="line">- rm(删除文件或目录) 常用参数：-r -f</span><br><span class="line">- mv(移动文件或目录，或重命名文件)</span><br><span class="line">- basename(获取文件名)</span><br><span class="line">- dirname(获取路径)</span><br><span class="line">### 文件内容查阅</span><br><span class="line">- cat(查看文件所有内容) 常用参数:-n 打印行号</span><br><span class="line">- tac(反向查看文件内容)不常用</span><br><span class="line">- more(可翻页查看) 空格：翻一页，Enter：翻一行，/str:搜索字符串，b:往会翻，q:退出more</span><br><span class="line">- less(与more功能类似，要用pageup和pagedown来翻页 )</span><br><span class="line">- head -n (查看前几行)</span><br><span class="line">- tail -n (查看后几行)</span><br><span class="line">- od 查看二进制文件</span><br><span class="line">### 修改文件时间或创建新文件:touch</span><br><span class="line">  在linux系统下有三个主要的时间：</span><br><span class="line">1. mtime(内容数据变更时间)：当文件里的内容改变时，此时间改变。</span><br><span class="line">2. ctime(状态改变时间)当文件的权限与属性改变是，此时间改变。</span><br><span class="line">3. atime(文件内容被取用时间)当文件的内容被取用时，更改此时间</span><br><span class="line">  默认情况下，ls显示的是mtime.</span><br><span class="line">  touch默认修改的是mtime和atime,加参数-a 则只修改atime。</span><br><span class="line">### 其他文件指令</span><br><span class="line">- file:查看文件类型</span><br><span class="line">- which：寻找可执行文件，此指令只能在PATH变量里的路径</span><br><span class="line">-   whereis:在一些特定的目录中寻找文件参数：  </span><br><span class="line">  l:接目录，在指定的目录查询  </span><br><span class="line">  b:只找二进制格式的文件  </span><br><span class="line">  m:只找说明文档  </span><br><span class="line">  s:只找源文件  </span><br><span class="line">  u:不在上述三个项目中的其他特殊文件</span><br><span class="line">- locate:接文件的部分名称即可，最好在locate之前先输一个updatedb指令。</span><br><span class="line">- find:功能强大的文件查找指令</span><br></pre></td></tr></table></figure></p>
+<p>find [PATH] [option] [action]<br><code>`</code></p>
+<ol>
+<li><p>与时间有关的参数：mtine [+-]n第n天前后被改动过的文件名，newer file:比file更新的文件名</p>
+</li>
+<li><p>与拥有者和群组有关的参数：uid,gid,user name,group name,nouser,nogroup<br>3.与文件权限及名称有关的参数：name,size [+-],type,perm mode,perm -mode,perm /mpde</p>
+<h6 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h6><p>大家也可以访问我的个人博客<a href="https://ljl131.github.com" target="_blank" rel="noopener">豆浆and油条er</a>、个人公众号搜索：豆浆and油条er</p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/05/24/Linux下的文件相关操作/" data-id="cjw257z870003mrjxcubmke9g" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/05/24/指针高级运用/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">指针的高级运用</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/05/24/Linux下的文件相关操作/">Linux下的文件相关操作</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/24/指针高级运用/">指针的高级运用</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/24/gcc的编译过程/">gcc的编译过程</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/24/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 a_biyudao<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
